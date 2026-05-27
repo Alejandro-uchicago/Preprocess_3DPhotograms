@@ -66,7 +66,7 @@ def preprocess_pipeline(input_file, output_file, config, photo=False, landmark=F
             # Optional fields (only saved if they exist on the graph)
             if hasattr(graph, "texture"):
                 torch.save(graph.texture, os.path.join(output_file, "textures.pt"))
-            if hasattr(graph, "landmarks"):
+            if hasattr(graph, "landmarks") and landmark:
                 torch.save(graph.landmarks, os.path.join(output_file, "landmarks.pt"))
 
         
