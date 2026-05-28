@@ -3,6 +3,7 @@ import os
 import yaml
 import sys
 from pathlib import Path
+import gc
 
 # Ensure `src` is importable when running this script directly.
 # This works even when current working directory is the repo root.
@@ -129,6 +130,7 @@ def main():
             df.loc[mask, "status"] = "failed"
             df.loc[mask, "error"] = str(e)
             
+    gc.collect()
     if config["save_df"]:
         df.to_excel(os.path.join(config["output_dir"], "Data_preprocessed.xlsx"), index=False)
 

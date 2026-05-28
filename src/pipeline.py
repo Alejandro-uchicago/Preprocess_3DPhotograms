@@ -6,6 +6,7 @@ import torch
 from pathlib import Path
 from src.mesh_utils import *
 from src.graph_utils import convert_to_graph
+import gc
 
 
 def freeze_seeds(seed: int = 42):
@@ -144,4 +145,5 @@ def preprocess_pipeline(input_file, output_file, config, photo=False, landmark=F
     else:
         if photoraw:
             print(f'The photo-raw {Path(input_file).name} has been processed......')
+    gc.collect()
     # return graph
