@@ -17,7 +17,7 @@ save_features: True
 process_raw_photo: True
 
 # graph
-use_texture: false
+use_texture: True
 
 # debug
 verbose: true

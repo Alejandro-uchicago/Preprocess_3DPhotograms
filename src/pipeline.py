@@ -84,9 +84,9 @@ def preprocess_pipeline(input_file, output_file, config, photo=False, landmark=F
         photo_mesh = preprocess_mesh(photo_mesh, config)
         
         if landmark:
-            graph = convert_to_graph(photo_mesh, Path(input_file).parent.name, use_texture=True, landmarks=landmarks)
+            graph = convert_to_graph(photo_mesh, Path(input_file).parent.name, use_texture=config['use_texture'], landmarks=landmarks)
         else:
-            graph = convert_to_graph(photo_mesh, Path(input_file).parent.name, use_texture=True)
+            graph = convert_to_graph(photo_mesh, Path(input_file).parent.name, use_texture=config['use_texture'])
             
         if config["save_graphs"]:
             torch.save(graph, os.path.join(output_file, 'graph.pt'))
@@ -97,7 +97,7 @@ def preprocess_pipeline(input_file, output_file, config, photo=False, landmark=F
             torch.save(graph.edge_weight, os.path.join(output_file,"edge_weights.pt"))
 
             # Optional fields (only saved if they exist on the graph)
-            if hasattr(graph, "texture"):
+            if hasattr(graph, "texture") and config['use_texture']:
                 torch.save(graph.texture, os.path.join(output_file, "textures.pt"))
             if hasattr(graph, "landmarks") and landmark:
                 torch.save(graph.landmarks, os.path.join(output_file, "landmarks.pt"))
@@ -122,9 +122,9 @@ def preprocess_pipeline(input_file, output_file, config, photo=False, landmark=F
         photo_raw_mesh = ReadPolyData(os.path.join(input_file, 'photo-raw.vtp'))
         photo_raw_mesh = preprocess_mesh(photo_raw_mesh, config)
         if landmark and not photo:
-            graph_raw = convert_to_graph(photo_raw_mesh, Path(input_file).parent.name, use_texture=True, landmarks=landmarks)
+            graph_raw = convert_to_graph(photo_raw_mesh, Path(input_file).parent.name, use_texture=config['use_texture'], landmarks=landmarks)
         else:
-            graph_raw = convert_to_graph(photo_raw_mesh, Path(input_file).parent.name, use_texture=True)
+            graph_raw = convert_to_graph(photo_raw_mesh, Path(input_file).parent.name, use_texture=config['use_texture'])
         
         if config["save_graphs"]:
             torch.save(graph_raw, os.path.join(output_raw_file, 'graph.pt'))
@@ -135,7 +135,7 @@ def preprocess_pipeline(input_file, output_file, config, photo=False, landmark=F
             torch.save(graph_raw.edge_weight, os.path.join(output_raw_file,"edge_weights.pt"))
 
             # Optional fields (only saved if they exist on the graph)
-            if hasattr(graph_raw, "texture"):
+            if hasattr(graph_raw, "texture") and config['use_texture']:
                 torch.save(graph_raw.texture, os.path.join(output_raw_file, "textures.pt"))
             if hasattr(graph_raw, "landmarks") and (landmark and not photo):
                 torch.save(graph_raw.landmarks, os.path.join(output_raw_file, "landmarks.pt"))

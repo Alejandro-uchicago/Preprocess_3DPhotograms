@@ -1,6 +1,6 @@
 # I/O
-input_dir: C:\Users\alejandrocruz\Box\DatasetsFromCU\3D_Photogrametry_Database\3DMD_Processed_Image_Database_Cleaned
-output_dir: C:\Users\alejandrocruz\Documents\3DMD_Processed_Image_Database_Cleaned_Preprocessed
+input_dir: C:\Users\alejandrocruz\Box\DatasetsFromCU\3D_Photogrametry_Database\Complete_3DPhotogrammetry_Database
+output_dir: C:\Users\alejandrocruz\Documents\Complete_3DPhotogrammetry_Database
 save_df: true
 
 # preprocessing
@@ -14,6 +14,9 @@ registration: True
 save_vtp_files: False
 save_graphs: True
 save_features: True
+
+
+
 process_raw_photo: True
 
 # graph
